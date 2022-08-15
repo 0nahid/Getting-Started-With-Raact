@@ -2,6 +2,24 @@
 const counterEl = document.getElementById("counter");
 const incrementEl = document.getElementById("increment");
 const decrementEl = document.getElementById("decrement");
+const CounterDiv = document.getElementById("counter-div");
+const CLoneDiv = document.getElementById("clone-div");
+
+const addCounterBtn = document.getElementById("add-counter");
+const removeCounterBtn = document.getElementById("remove-counter");
+
+// copy CounterDiv to CLoneDiv and add it to the DOM
+const addCounter = () => {
+    const newCounterDiv = CounterDiv.cloneNode(true);
+    CLoneDiv.appendChild(newCounterDiv);
+}
+addCounterBtn.addEventListener("click", addCounter);
+
+// remove the full clone div
+const removeCounter = () => {
+    CLoneDiv.removeChild(CLoneDiv.lastChild);
+}
+removeCounterBtn.addEventListener("click", removeCounter);
 
 // actions identifiers
 const INCREMENT = "increment";
@@ -20,13 +38,24 @@ const decrement = (payload) => ({
 
 
 // initial state
-const initialState = {
-    value: 0,
-    properties: {
-        a: 2,
-        b: 3
+const initialState = [
+    {
+        id: 1,
+        value: 1,
+    },
+    {
+        id: 2,
+        value: 2,
+    },
+    {
+        id: 3,
+        value: 3,
+    },
+    {
+        id: 4,
+        value: 4
     }
-}
+];
 
 // reducer
 const counterReducer = (state = initialState, action) => {
