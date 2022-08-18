@@ -2,28 +2,33 @@
 const counterEl = document.getElementById("counter");
 const incrementEl = document.getElementById("increment");
 const decrementEl = document.getElementById("decrement");
-const CounterDiv = document.getElementById("counter-div");
-const CLoneDiv = document.getElementById("clone-div");
-
+const CloneDivEl = document.getElementById("clone-div");
 const addCounterBtn = document.getElementById("add-counter");
 const removeCounterBtn = document.getElementById("remove-counter");
+let index = 1;
 
-// copy CounterDiv to CLoneDiv and add it to the DOM
-const addCounter = () => {
-    const newCounterDiv = CounterDiv.cloneNode(true);
-    CLoneDiv.appendChild(newCounterDiv);
-}
-addCounterBtn.addEventListener("click", addCounter);
+addCounterBtn.addEventListener("click", () => {
+    CloneDivEl.innerHTML += `
+    <div id="counter-div"
+        class="p-4 h-auto flex flex-col items-center justify-center space-y-5 bg-white rounded shadow mt-2">
+        <div class="text-2xl font-semibold" id="counter-${index}">0</div>
+        <div class="flex space-x-3">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="increment-${index}">
+                Increment
+            </button>
+          <button class="bg-red-400 text-white px-3 py-2 rounded shadow"  id="decrement-${index}">
+            Decrement
+          </button>
+        </div>
+      </div>
+    `;
+    index++;
+})
 
-// remove the full clone div
-const removeCounter = () => {
-    CLoneDiv.removeChild(CLoneDiv.lastChild);
-}
-removeCounterBtn.addEventListener("click", removeCounter);
 
 // actions identifiers
-const INCREMENT = "increment";
-const DECREMENT = "decrement";
+const INCREMENT = `increment-${index}`;
+const DECREMENT = `decrement-${index}`;
 
 // actions creators
 const increment = (payload) => ({
@@ -38,24 +43,9 @@ const decrement = (payload) => ({
 
 
 // initial state
-const initialState = [
-    {
-        id: 1,
-        value: 1,
-    },
-    {
-        id: 2,
-        value: 2,
-    },
-    {
-        id: 3,
-        value: 3,
-    },
-    {
-        id: 4,
-        value: 4
-    }
-];
+const initialState = {
+    value: 0,
+}
 
 // reducer
 const counterReducer = (state = initialState, action) => {
