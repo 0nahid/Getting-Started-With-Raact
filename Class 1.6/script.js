@@ -20,25 +20,6 @@ inputNumber.addEventListener("change", (e) => {
 });
 
 
-addCounterBtn.addEventListener("click", () => {
-    CloneDivEl.innerHTML += `
-    <div id="counter-div"
-        class="p-4 h-auto flex flex-col items-center justify-center space-y-5 bg-white rounded shadow mt-2">
-        <h2 class="">Counter ${index}</h2>
-        <div class="text-2xl font-semibold" id="counter-${index}">0</div>
-        <div class="flex space-x-1">
-        <input class="placeholder-shown:border-gray-500 ring ring-2 rounded px-2" type="number" name="" id="input-number-${index}" placeholder="1">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="increment-${index}">
-                Increment
-            </button>
-          <button class="bg-red-400 text-white px-3 py-2 rounded shadow"  id="decrement-${index}">
-            Decrement
-          </button>
-        </div>
-      </div>
-    `;
-    index++;
-})
 
 
 // actions identifiers
@@ -58,9 +39,14 @@ const decrement = (payload) => ({
 
 
 // initial state
-const initialState = {
-    value: 0,
-}
+const initialState = 
+    {
+        id:0,
+        value: 0,
+        incrementBy : 1,
+        decrementBy : 1,
+    }
+
 
 // reducer
 const counterReducer = (state = initialState, action) => {
@@ -102,3 +88,23 @@ incrementEl.addEventListener("click", () => {
 decrementEl.addEventListener("click", () => {
     store.dispatch(decrement(parseInt(inputValue) || 1));
 });
+
+addCounterBtn.addEventListener("click", () => {
+    CloneDivEl.innerHTML += `
+    <div id="counter-div"
+        class="p-4 h-auto flex flex-col items-center justify-center space-y-5 bg-white rounded shadow mt-2">
+        <h2 class="">Counter ${index}</h2>
+        <div class="text-2xl font-semibold" id="counter-${index}">0</div>
+        <div class="flex space-x-1">
+        <input class="placeholder-shown:border-gray-500 ring ring-2 rounded px-2" type="number" name="" id="input-number-${index}" placeholder="1">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="increment-${index}">
+                Increment
+            </button>
+          <button class="bg-red-400 text-white px-3 py-2 rounded shadow"  id="decrement-${index}">
+            Decrement
+          </button>
+        </div>
+      </div>
+    `;
+    index++;
+})
